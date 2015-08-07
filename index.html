@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>QGIS2leaf webmap</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+		<link rel="stylesheet" type="text/css" href="css/own_style.css">
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+		<script src="js/leaflet-hash.js"></script>
+		<script src="js/Autolinker.min.js"></script>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	</head>
+	<body>
+		<div id="map"></div>
+		<script src="data/exp_13.js"></script>
+		<script>
+		var map = L.map('map', {
+			zoomControl:true, maxZoom:19
+		}).fitBounds([[36.7498781828,-94.9133340787],[42.4653099234,-83.57802949]]);
+		var hash = new L.Hash(map);
+		var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">qgis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
+		var feature_group = new L.featureGroup([]);
+		var raster_group = new L.LayerGroup([]);
+		var basemap_0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
+			attribution: additional_attrib + '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+		});	
+		basemap_0.addTo(map);	
+		var layerOrder=new Array();
+		function pop_13(feature, layer) {					
+			var popupContent = '<table><tr><th scope="row">INVENTORY</th><td>' + Autolinker.link(String(feature.properties['INVENTORY'])) + '</td></tr><tr><th scope="row">BEG_STA</th><td>' + Autolinker.link(String(feature.properties['BEG_STA'])) + '</td></tr><tr><th scope="row">END_STA</th><td>' + Autolinker.link(String(feature.properties['END_STA'])) + '</td></tr><tr><th scope="row">AADT</th><td>' + Autolinker.link(String(feature.properties['AADT'])) + '</td></tr><tr><th scope="row">AADT_EST</th><td>' + Autolinker.link(String(feature.properties['AADT_EST'])) + '</td></tr><tr><th scope="row">AADT_YR</th><td>' + Autolinker.link(String(feature.properties['AADT_YR'])) + '</td></tr><tr><th scope="row">ACC_CNTL</th><td>' + Autolinker.link(String(feature.properties['ACC_CNTL'])) + '</td></tr><tr><th scope="row">BLT</th><td>' + Autolinker.link(String(feature.properties['BLT'])) + '</td></tr><tr><th scope="row">CH</th><td>' + Autolinker.link(String(feature.properties['CH'])) + '</td></tr><tr><th scope="row">CNTYTWP</th><td>' + Autolinker.link(String(feature.properties['CNTYTWP'])) + '</td></tr><tr><th scope="row">CO_ADJ</th><td>' + Autolinker.link(String(feature.properties['CO_ADJ'])) + '</td></tr><tr><th scope="row">CONG</th><td>' + Autolinker.link(String(feature.properties['CONG'])) + '</td></tr><tr><th scope="row">CONG_ADJ</th><td>' + Autolinker.link(String(feature.properties['CONG_ADJ'])) + '</td></tr><tr><th scope="row">COUNTY</th><td>' + Autolinker.link(String(feature.properties['COUNTY'])) + '</td></tr><tr><th scope="row">COUNTY_HWY</th><td>' + Autolinker.link(String(feature.properties['COUNTY_HWY'])) + '</td></tr><tr><th scope="row">COUNTY_NAM</th><td>' + Autolinker.link(String(feature.properties['COUNTY_NAM'])) + '</td></tr><tr><th scope="row">CRS_LOW</th><td>' + Autolinker.link(String(feature.properties['CRS_LOW'])) + '</td></tr><tr><th scope="row">CRS_OPP</th><td>' + Autolinker.link(String(feature.properties['CRS_OPP'])) + '</td></tr><tr><th scope="row">CRS_WITH</th><td>' + Autolinker.link(String(feature.properties['CRS_WITH'])) + '</td></tr><tr><th scope="row">CRS_YR</th><td>' + Autolinker.link(String(feature.properties['CRS_YR'])) + '</td></tr><tr><th scope="row">DTRESS_OPP</th><td>' + Autolinker.link(String(feature.properties['DTRESS_OPP'])) + '</td></tr><tr><th scope="row">DTRESS_WTH</th><td>' + Autolinker.link(String(feature.properties['DTRESS_WTH'])) + '</td></tr><tr><th scope="row">FAULT_LOW</th><td>' + Autolinker.link(String(feature.properties['FAULT_LOW'])) + '</td></tr><tr><th scope="row">FAULT_OPP</th><td>' + Autolinker.link(String(feature.properties['FAULT_OPP'])) + '</td></tr><tr><th scope="row">FAULT_WITH</th><td>' + Autolinker.link(String(feature.properties['FAULT_WITH'])) + '</td></tr><tr><th scope="row">FCNAME</th><td>' + Autolinker.link(String(feature.properties['FCNAME'])) + '</td></tr><tr><th scope="row">FUNC_CLASS</th><td>' + Autolinker.link(String(feature.properties['FUNC_CLASS'])) + '</td></tr><tr><th scope="row">geodb_oid</th><td>' + Autolinker.link(String(feature.properties['geodb_oid'])) + '</td></tr><tr><th scope="row">HCV</th><td>' + Autolinker.link(String(feature.properties['HCV'])) + '</td></tr><tr><th scope="row">HCV_MU_YR</th><td>' + Autolinker.link(String(feature.properties['HCV_MU_YR'])) + '</td></tr><tr><th scope="row">HPMS_SECT</th><td>' + Autolinker.link(String(feature.properties['HPMS_SECT'])) + '</td></tr><tr><th scope="row">I_SHD1_TYP</th><td>' + Autolinker.link(String(feature.properties['I_SHD1_TYP'])) + '</td></tr><tr><th scope="row">I_SHD1_WTH</th><td>' + Autolinker.link(String(feature.properties['I_SHD1_WTH'])) + '</td></tr><tr><th scope="row">I_SHD2_TYP</th><td>' + Autolinker.link(String(feature.properties['I_SHD2_TYP'])) + '</td></tr><tr><th scope="row">I_SHD2_WTH</th><td>' + Autolinker.link(String(feature.properties['I_SHD2_WTH'])) + '</td></tr><tr><th scope="row">IRI_LOW</th><td>' + Autolinker.link(String(feature.properties['IRI_LOW'])) + '</td></tr><tr><th scope="row">IRI_OPP</th><td>' + Autolinker.link(String(feature.properties['IRI_OPP'])) + '</td></tr><tr><th scope="row">IRI_WITH</th><td>' + Autolinker.link(String(feature.properties['IRI_WITH'])) + '</td></tr><tr><th scope="row">JUR_1</th><td>' + Autolinker.link(String(feature.properties['JUR_1'])) + '</td></tr><tr><th scope="row">JUR_2</th><td>' + Autolinker.link(String(feature.properties['JUR_2'])) + '</td></tr><tr><th scope="row">JUR_TYPE</th><td>' + Autolinker.link(String(feature.properties['JUR_TYPE'])) + '</td></tr><tr><th scope="row">KEY_RT_APN</th><td>' + Autolinker.link(String(feature.properties['KEY_RT_APN'])) + '</td></tr><tr><th scope="row">KEY_RT_APP</th><td>' + Autolinker.link(String(feature.properties['KEY_RT_APP'])) + '</td></tr><tr><th scope="row">KEY_RT_NBR</th><td>' + Autolinker.link(String(feature.properties['KEY_RT_NBR'])) + '</td></tr><tr><th scope="row">KEY_RT_SEG</th><td>' + Autolinker.link(String(feature.properties['KEY_RT_SEG'])) + '</td></tr><tr><th scope="row">KEY_RT_SUF</th><td>' + Autolinker.link(String(feature.properties['KEY_RT_SUF'])) + '</td></tr><tr><th scope="row">KEY_RT_TYP</th><td>' + Autolinker.link(String(feature.properties['KEY_RT_TYP'])) + '</td></tr><tr><th scope="row">LANES</th><td>' + Autolinker.link(String(feature.properties['LANES'])) + '</td></tr><tr><th scope="row">LN_SPC</th><td>' + Autolinker.link(String(feature.properties['LN_SPC'])) + '</td></tr><tr><th scope="row">LN_SPC_NBR</th><td>' + Autolinker.link(String(feature.properties['LN_SPC_NBR'])) + '</td></tr><tr><th scope="row">LN_SPC_WTH</th><td>' + Autolinker.link(String(feature.properties['LN_SPC_WTH'])) + '</td></tr><tr><th scope="row">LN_WTH</th><td>' + Autolinker.link(String(feature.properties['LN_WTH'])) + '</td></tr><tr><th scope="row">LNS</th><td>' + Autolinker.link(String(feature.properties['LNS'])) + '</td></tr><tr><th scope="row">MAINT_TYPE</th><td>' + Autolinker.link(String(feature.properties['MAINT_TYPE'])) + '</td></tr><tr><th scope="row">MARKED_RT</th><td>' + Autolinker.link(String(feature.properties['MARKED_RT'])) + '</td></tr><tr><th scope="row">MARKED_RT2</th><td>' + Autolinker.link(String(feature.properties['MARKED_RT2'])) + '</td></tr><tr><th scope="row">MARKED_RT3</th><td>' + Autolinker.link(String(feature.properties['MARKED_RT3'])) + '</td></tr><tr><th scope="row">MARKED_RT4</th><td>' + Autolinker.link(String(feature.properties['MARKED_RT4'])) + '</td></tr><tr><th scope="row">MED_TYP</th><td>' + Autolinker.link(String(feature.properties['MED_TYP'])) + '</td></tr><tr><th scope="row">MED_WTH</th><td>' + Autolinker.link(String(feature.properties['MED_WTH'])) + '</td></tr><tr><th scope="row">MNT_1</th><td>' + Autolinker.link(String(feature.properties['MNT_1'])) + '</td></tr><tr><th scope="row">MNT_2</th><td>' + Autolinker.link(String(feature.properties['MNT_2'])) + '</td></tr><tr><th scope="row">MNT_DIST</th><td>' + Autolinker.link(String(feature.properties['MNT_DIST'])) + '</td></tr><tr><th scope="row">MPO</th><td>' + Autolinker.link(String(feature.properties['MPO'])) + '</td></tr><tr><th scope="row">MU_EST</th><td>' + Autolinker.link(String(feature.properties['MU_EST'])) + '</td></tr><tr><th scope="row">MU_VOL</th><td>' + Autolinker.link(String(feature.properties['MU_VOL'])) + '</td></tr><tr><th scope="row">MUNI</th><td>' + Autolinker.link(String(feature.properties['MUNI'])) + '</td></tr><tr><th scope="row">MUNI_NAME</th><td>' + Autolinker.link(String(feature.properties['MUNI_NAME'])) + '</td></tr><tr><th scope="row">NHS</th><td>' + Autolinker.link(String(feature.properties['NHS'])) + '</td></tr><tr><th scope="row">NON_ATTAIN</th><td>' + Autolinker.link(String(feature.properties['NON_ATTAIN'])) + '</td></tr><tr><th scope="row">O_SHD1_TYP</th><td>' + Autolinker.link(String(feature.properties['O_SHD1_TYP'])) + '</td></tr><tr><th scope="row">O_SHD1_WTH</th><td>' + Autolinker.link(String(feature.properties['O_SHD1_WTH'])) + '</td></tr><tr><th scope="row">O_SHD2_TYP</th><td>' + Autolinker.link(String(feature.properties['O_SHD2_TYP'])) + '</td></tr><tr><th scope="row">O_SHD2_WTH</th><td>' + Autolinker.link(String(feature.properties['O_SHD2_WTH'])) + '</td></tr><tr><th scope="row">OBJECTID</th><td>' + Autolinker.link(String(feature.properties['OBJECTID'])) + '</td></tr><tr><th scope="row">OP_1_2_WAY</th><td>' + Autolinker.link(String(feature.properties['OP_1_2_WAY'])) + '</td></tr><tr><th scope="row">PL_AGY</th><td>' + Autolinker.link(String(feature.properties['PL_AGY'])) + '</td></tr><tr><th scope="row">PRK_LT</th><td>' + Autolinker.link(String(feature.properties['PRK_LT'])) + '</td></tr><tr><th scope="row">PRK_RT</th><td>' + Autolinker.link(String(feature.properties['PRK_RT'])) + '</td></tr><tr><th scope="row">REP</th><td>' + Autolinker.link(String(feature.properties['REP'])) + '</td></tr><tr><th scope="row">REP_ADJ</th><td>' + Autolinker.link(String(feature.properties['REP_ADJ'])) + '</td></tr><tr><th scope="row">ROAD_NAME</th><td>' + Autolinker.link(String(feature.properties['ROAD_NAME'])) + '</td></tr><tr><th scope="row">RUT_LOW</th><td>' + Autolinker.link(String(feature.properties['RUT_LOW'])) + '</td></tr><tr><th scope="row">RUT_OPP</th><td>' + Autolinker.link(String(feature.properties['RUT_OPP'])) + '</td></tr><tr><th scope="row">RUT_WITH</th><td>' + Autolinker.link(String(feature.properties['RUT_WITH'])) + '</td></tr><tr><th scope="row">SEG_LENGTH</th><td>' + Autolinker.link(String(feature.properties['SEG_LENGTH'])) + '</td></tr><tr><th scope="row">SP_LIM</th><td>' + Autolinker.link(String(feature.properties['SP_LIM'])) + '</td></tr><tr><th scope="row">SPEC_SYS</th><td>' + Autolinker.link(String(feature.properties['SPEC_SYS'])) + '</td></tr><tr><th scope="row">SU_EST</th><td>' + Autolinker.link(String(feature.properties['SU_EST'])) + '</td></tr><tr><th scope="row">SU_VOL</th><td>' + Autolinker.link(String(feature.properties['SU_VOL'])) + '</td></tr><tr><th scope="row">SURF_TYP</th><td>' + Autolinker.link(String(feature.properties['SURF_TYP'])) + '</td></tr><tr><th scope="row">SURF_WTH</th><td>' + Autolinker.link(String(feature.properties['SURF_WTH'])) + '</td></tr><tr><th scope="row">SURF_YR</th><td>' + Autolinker.link(String(feature.properties['SURF_YR'])) + '</td></tr><tr><th scope="row">TOLL</th><td>' + Autolinker.link(String(feature.properties['TOLL'])) + '</td></tr><tr><th scope="row">TOWNSHIP_N</th><td>' + Autolinker.link(String(feature.properties['TOWNSHIP_N'])) + '</td></tr><tr><th scope="row">TRK_RT</th><td>' + Autolinker.link(String(feature.properties['TRK_RT'])) + '</td></tr><tr><th scope="row">TWP</th><td>' + Autolinker.link(String(feature.properties['TWP'])) + '</td></tr><tr><th scope="row">TWP_ADJ</th><td>' + Autolinker.link(String(feature.properties['TWP_ADJ'])) + '</td></tr><tr><th scope="row">URB_LOC</th><td>' + Autolinker.link(String(feature.properties['URB_LOC'])) + '</td></tr><tr><th scope="row">URBAN</th><td>' + Autolinker.link(String(feature.properties['URBAN'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+
+		function doStyle13(feature) {
+			switch (feature.properties.FUNC_CLASS) {
+				case '1':
+					return {
+						color: '#283ad4',
+						weight: '1.3',
+						dashArray: '',
+						opacity: '1.0',
+					};
+					break;
+				case '2':
+					return {
+						color: '#d6c740',
+						weight: '1.3',
+						dashArray: '',
+						opacity: '1.0',
+					};
+					break;
+				case '3':
+					return {
+						color: '#62cf8e',
+						weight: '1.3',
+						dashArray: '',
+						opacity: '1.0',
+					};
+					break;
+				default:
+					return {
+						color: '#e17cb9',
+						weight: '1.3',
+						dashArray: '',
+						opacity: '1.0',
+					};
+					break;
+			}
+		}
+		var exp_13JSON = new L.geoJson(exp_13,{
+			onEachFeature: pop_13,
+			style: doStyle13
+		});
+		//add comment sign to hide this layer on the map in the initial view.
+		feature_group.addLayer(exp_13JSON);
+
+		feature_group.addTo(map);
+		var title = new L.Control();
+		title.onAdd = function (map) {
+			this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+			this.update();
+			return this._div;
+		};
+		title.update = function () {
+			this._div.innerHTML = '<h2>This is the title</h2>This is the subtitle'
+		};
+		title.addTo(map);
+	var baseMaps = {
+		'OSM Standard': basemap_0
+	};
+		L.control.layers(baseMaps,{"13": exp_13JSON},{collapsed:false}).addTo(map);
+		L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
+	</script>
+</body>
+</html>
